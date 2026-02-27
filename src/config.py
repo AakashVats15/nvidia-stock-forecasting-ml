@@ -1,6 +1,8 @@
 import os
-from sklearn.linear_model import LinearRegression
-from sklearn.ensemble import RandomForestRegressor
+from src.models.linear_models import linear, ridge, lasso, elastic
+from src.models.tree_models import rf, gbr
+from src.models.lstm_model import lstm
+from src.models.arima_models import arima
 
 ROOT = os.path.dirname(os.path.dirname(__file__))
 
@@ -19,6 +21,12 @@ TARGET = "target_ret_1d"
 DROP = ["target_ret_1d", "target_sumret_5d", "target_dir"]
 
 MODELS = {
-    "linear": LinearRegression,
-    "rf": lambda: RandomForestRegressor(n_estimators=200, max_depth=5, random_state=42)
+    "linear": linear,
+    "ridge": ridge,
+    "lasso": lasso,
+    "elastic": elastic,
+    "rf": rf,
+    "gbr": gbr,
+    "lstm": lstm,
+    "arima": arima
 }
