@@ -1,8 +1,11 @@
 import os
 import joblib
+import argparse
 import pandas as pd
-from config import DATA_TARGETS, MODEL_DIR, MODELS, DROP, SPLIT
 import numpy as np
+from src.config import DATA_TARGETS, MODEL_DIR, MODELS, DROP, SPLIT
+
+
 
 def load(path):
     return pd.read_csv(path, parse_dates=["Date"], index_col="Date")
@@ -39,13 +42,16 @@ def train_model(name, X, y):
     m.fit(X, y)
     return m
 
-def run(inp=DATA_TARGETS, out_dir=MODEL_DIR, model_name="linear"):
-    df = load(inp)
+def run(model_name):
+    df = load(DATA_TARGETS)
     tr, va, te = split(df)
     Xtr, ytr = prepare(tr)
     m = train_model(model_name, Xtr, ytr)
-    os.makedirs(out_dir, exist_ok=True)
-    joblib.dump(m, os.path.join(out_dir, f"{model_name}.pkl"))
+    os.makedirs(MODEL_DIR, exist_ok=True)
+    joblib.dump(m, os.path.join(MODEL_DIR, f"{model_name}.pkl"))
 
 if __name__ == "__main__":
-    run()
+    p = argparse.ArgumentParser()
+    p.add_argument("--model_name", type=str, default="linear")
+    args = p.parse_args()
+    run(args.model_name)

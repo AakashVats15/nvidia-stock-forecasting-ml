@@ -1,8 +1,11 @@
 import os
 from src.models.linear_models import linear, ridge, lasso, elastic
 from src.models.tree_models import rf, gbr
-from src.models.lstm_model import lstm
 from src.models.arima_models import arima
+
+def lstm():
+    from src.models.lstm_model import lstm as _lstm
+    return _lstm()
 
 ROOT = os.path.dirname(os.path.dirname(__file__))
 
