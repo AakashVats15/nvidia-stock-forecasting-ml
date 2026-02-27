@@ -34,7 +34,7 @@ def stoch(df, high="High", low="Low", close="Close", k=14, d=3):
     df["stoch_d"] = df["stoch_k"].rolling(d).mean()
     return df
 
-def build(df):
+def build_features(df):
     df = lagged(df, "ret", [1,5,10,20])
     df = rolling(df, "ret", [5,10,20])
     df = rsi(df, "Close")

@@ -1,0 +1,9 @@
+model,status
+linear,ok
+ridge,ok
+lasso,ok
+elastic,ok
+rf,ok
+gbr,ok
+lstm,fail
+arima,ok

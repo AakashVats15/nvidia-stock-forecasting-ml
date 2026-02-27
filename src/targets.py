@@ -12,7 +12,7 @@ def direction(df, col="ret"):
     df["target_dir"] = (df[col].shift(-1) > 0).astype(int)
     return df
 
-def build(df):
+def build_targets(df):
     df = next_return(df)
     df = next_sum_return(df)
     df = direction(df)
@@ -20,7 +20,7 @@ def build(df):
 
 def run(inp="data/processed/nvda_features.csv", out="data/processed/nvda_targets.csv"):
     df = pd.read_csv(inp, parse_dates=["Date"], index_col="Date")
-    df = build(df)
+    df = build_targets(df)
     df.to_csv(out)
 
 if __name__ == "__main__":
